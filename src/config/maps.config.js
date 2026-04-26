@@ -1,0 +1,60 @@
+const maps = [
+  {
+    id: 'TV',
+    name: 'Tenderness Valley',
+    shortName: 'TV',
+    order: 1,
+    videoSrc: '/assets/maps/TV.mp4',
+    slot: { x: 6, y: 17, w: 21, h: 19 },
+  },
+  {
+    id: 'FP',
+    name: 'Fel Pit',
+    shortName: 'FP',
+    order: 2,
+    videoSrc: '/assets/maps/FP.mp4',
+    slot: { x: 29.5, y: 17, w: 21, h: 19 },
+  },
+  {
+    id: 'RL',
+    name: 'River of Life',
+    shortName: 'RL',
+    order: 3,
+    videoSrc: '/assets/maps/RL.mp4',
+    slot: { x: 53, y: 17, w: 21, h: 19 },
+  },
+  {
+    id: 'WH',
+    name: 'War Hall',
+    shortName: 'WH',
+    order: 4,
+    videoSrc: '/assets/maps/WH.mp4',
+    slot: { x: 76.5, y: 17, w: 17.5, h: 19 },
+  },
+  {
+    id: 'TW',
+    name: 'Turbid Waters',
+    shortName: 'TW',
+    order: 5,
+    videoSrc: '/assets/maps/TW.mp4',
+    slot: { x: 17.75, y: 58, w: 21, h: 19 },
+  },
+  {
+    id: 'FA',
+    name: 'Fading Autumn',
+    shortName: 'FA',
+    order: 6,
+    videoSrc: '/assets/maps/FA.mp4',
+    slot: { x: 41.25, y: 58, w: 21, h: 19 },
+  },
+  {
+    id: 'MS',
+    name: 'Moon Strand',
+    shortName: 'MS',
+    order: 7,
+    videoSrc: '/assets/maps/MS.mp4',
+    slot: { x: 64.75, y: 58, w: 21, h: 19 },
+  },
+];
+
+module.exports = { maps };

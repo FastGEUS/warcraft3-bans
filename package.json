@@ -1,0 +1,27 @@
+{
+  "name": "wc3-map-ban",
+  "version": "1.0.0",
+  "description": "Warcraft 3 map ban overlay with a transparent OBS overlay and realtime admin panel.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "health": "node -e \"fetch('http://127.0.0.1:3000/health').then(r=>r.json()).then(console.log)\""
+  },
+  "keywords": [
+    "warcraft-3",
+    "obs",
+    "overlay",
+    "socket.io",
+    "broadcast"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.3",
+    "socket.io": "^4.7.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
