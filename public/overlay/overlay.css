@@ -3,7 +3,7 @@
   --slot-border: rgba(255, 255, 255, 0);
   --label-bg: rgba(8, 12, 16, 0.72);
   --label-text: rgba(255, 255, 255, 0.88);
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(1, 1, 1, 1);
 }
 
 *,
