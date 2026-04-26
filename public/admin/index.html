@@ -50,6 +50,21 @@
           </button>
         </div>
 
+        <form class="players-form" data-players-form>
+          <div class="queue-title">Players</div>
+          <label class="player-field">
+            <span>Игрок 1</span>
+            <input type="text" name="player1" value="Player 1" autocomplete="off" data-testid="input-player1" />
+          </label>
+          <label class="player-field">
+            <span>Игрок 2</span>
+            <input type="text" name="player2" value="Player 2" autocomplete="off" data-testid="input-player2" />
+          </label>
+          <button class="ghost-button" type="submit" data-testid="button-save-players">
+            Обновить ники
+          </button>
+        </form>
+
         <div class="queue-box">
           <div class="queue-title">Reveal queue</div>
           <ol class="queue-list" data-queue-list data-testid="list-queue"></ol>

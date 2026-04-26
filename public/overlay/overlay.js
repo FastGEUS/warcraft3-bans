@@ -13,6 +13,10 @@ function setSlotGeometry(element, slot) {
   element.style.height = `${slot.h}px`;
 }
 
+function getPlayerName(state, playerKey) {
+  return state?.players?.[playerKey] || (playerKey === 'player1' ? 'Player 1' : 'Player 2');
+}
+
 function primeVideo(video) {
   const pauseAtStart = () => {
     try {
@@ -56,9 +60,18 @@ function createMapSlot(map) {
   label.className = 'map-label';
   label.textContent = `${map.shortName} · ${map.name}`;
 
-  slot.append(fallback, video, label);
+  const pickOverlay = document.createElement('div');
+  pickOverlay.className = 'pick-overlay';
+  pickOverlay.setAttribute('aria-hidden', 'true');
+
+  const pickNameplate = document.createElement('div');
+  pickNameplate.className = 'pick-nameplate';
+  pickNameplate.textContent = '';
+  pickOverlay.append(pickNameplate);
+
+  slot.append(fallback, video, pickOverlay, label);
   stage.append(slot);
-  slotElements.set(map.id, { slot, video, fallback, label });
+  slotElements.set(map.id, { slot, video, fallback, pickOverlay, pickNameplate, label });
 }
 
 function updateSlot(map) {
@@ -68,9 +81,15 @@ function updateSlot(map) {
     return;
   }
 
-  const { slot, video } = entry;
-  slot.classList.remove('is-idle', 'is-banned', 'is-playing', 'is-played');
+  const { slot, video, pickNameplate } = entry;
+  slot.classList.remove('is-idle', 'is-banned', 'is-playing', 'is-played', 'is-selected');
   slot.classList.add(`is-${map.status}`);
+  if (map.selectedBy && map.status !== 'banned') {
+    slot.classList.add('is-selected');
+    pickNameplate.textContent = getPlayerName(currentState, map.selectedBy);
+  } else {
+    pickNameplate.textContent = '';
+  }
   setSlotGeometry(slot, map.slot);
 
   if (map.status === 'idle' || map.status === 'banned') {

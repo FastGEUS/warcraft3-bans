@@ -3,7 +3,7 @@
   --slot-border: rgba(255, 255, 255, 0);
   --label-bg: rgba(8, 12, 16, 0.72);
   --label-text: rgba(255, 255, 255, 0.88);
-  --ease-out: cubic-bezier(1, 1, 1, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 *,
@@ -44,6 +44,7 @@ body {
 }
 
 .map-video,
+.pick-overlay,
 .fallback-layer {
   position: absolute;
   inset: 0;
@@ -76,6 +77,44 @@ body {
   text-transform: uppercase;
 }
 
+.pick-overlay {
+  z-index: 3;
+  opacity: 0;
+  border: 5px solid rgba(72, 255, 89, 0.92);
+  background:
+    linear-gradient(180deg, rgba(72, 255, 89, 0.16), rgba(72, 255, 89, 0.04)),
+    radial-gradient(circle at 50% 40%, rgba(72, 255, 89, 0.18), transparent 68%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.32),
+    inset 0 0 32px rgba(72, 255, 89, 0.22),
+    0 0 22px rgba(72, 255, 89, 0.28);
+  transition: opacity 260ms var(--ease-out);
+}
+
+.pick-nameplate {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  max-width: calc(100% - 28px);
+  transform: translateX(-50%);
+  border: 1px solid rgba(176, 255, 169, 0.75);
+  border-radius: 999px;
+  background: rgba(8, 34, 12, 0.88);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  color: #dcffd8;
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  min-width: 110px;
+  overflow: hidden;
+  padding: 9px 15px 10px;
+  text-align: center;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
 .map-label {
   position: absolute;
   left: 12px;
@@ -101,6 +140,14 @@ body {
 .map-slot.is-banned .map-video {
   opacity: 1;
   filter: grayscale(1) saturate(0) brightness(0.48) contrast(1.22);
+}
+
+.map-slot.is-selected .pick-overlay {
+  opacity: 1;
+}
+
+.map-slot.is-banned .pick-overlay {
+  opacity: 0;
 }
 
 .map-slot.is-playing {

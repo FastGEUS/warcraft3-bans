@@ -62,6 +62,20 @@ input {
   font: inherit;
 }
 
+input {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.055);
+  color: var(--color-text);
+  min-height: 2.55rem;
+  padding: var(--space-2) var(--space-3);
+  width: 100%;
+}
+
+input::placeholder {
+  color: var(--color-faint);
+}
+
 button,
 a {
   transition:
@@ -219,6 +233,7 @@ h2 {
 
 .primary-button,
 .danger-button,
+.ghost-button,
 .map-button {
   min-height: 2.75rem;
   border-radius: var(--radius-md);
@@ -244,6 +259,37 @@ h2 {
 
 .danger-button:hover:not(:disabled) {
   border-color: rgba(212, 99, 130, 0.72);
+}
+
+.ghost-button {
+  border: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.045);
+  color: var(--color-text);
+  width: 100%;
+}
+
+.ghost-button:hover:not(:disabled) {
+  border-color: rgba(73, 181, 196, 0.45);
+  color: var(--color-primary-strong);
+}
+
+.players-form {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0 var(--space-5) var(--space-5);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.035);
+  padding: var(--space-4);
+}
+
+.player-field {
+  display: grid;
+  gap: var(--space-2);
+  color: var(--color-muted);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .queue-box {
@@ -304,6 +350,14 @@ h2 {
   background: rgba(212, 99, 130, 0.08);
 }
 
+.map-card.is-selected {
+  border-color: rgba(117, 184, 102, 0.68);
+  background:
+    linear-gradient(135deg, rgba(117, 184, 102, 0.14), rgba(117, 184, 102, 0.035)),
+    rgba(255, 255, 255, 0.035);
+  box-shadow: inset 0 0 0 1px rgba(117, 184, 102, 0.24);
+}
+
 .map-card.is-playing {
   border-color: rgba(73, 181, 196, 0.58);
   box-shadow: inset 0 0 0 1px rgba(73, 181, 196, 0.2);
@@ -341,9 +395,31 @@ h2 {
   padding: var(--space-1) var(--space-2);
 }
 
+.map-status-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-2);
+}
+
+.selected-pill {
+  border-radius: 999px;
+  background: rgba(117, 184, 102, 0.16);
+  color: #c6ffbd;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  padding: var(--space-1) var(--space-2);
+}
+
 .map-actions {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+}
+
+.map-pick-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
   gap: var(--space-2);
 }
 
@@ -360,6 +436,15 @@ h2 {
 
 .map-button[data-kind='ban'] {
   color: #ffd5df;
+}
+
+.map-button[data-kind='pick'] {
+  color: #c6ffbd;
+}
+
+.map-button[data-kind='clear'] {
+  min-width: 3rem;
+  color: var(--color-muted);
 }
 
 .event-log {

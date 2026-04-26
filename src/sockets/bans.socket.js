@@ -42,6 +42,41 @@ function registerBanSocket({ io, stateService, mediaQueue }) {
       }
     });
 
+    socket.on('admin:updatePlayers', ({ players }) => {
+      try {
+        const updatedPlayers = stateService.updatePlayers(players);
+        broadcastFullState();
+        pushLog('players', `Players updated: ${updatedPlayers.player1} vs ${updatedPlayers.player2}`, {
+          players: updatedPlayers,
+        });
+      } catch (error) {
+        emitError(socket, error);
+      }
+    });
+
+    socket.on('admin:selectMap', ({ id, playerKey }) => {
+      try {
+        const map = stateService.selectMap(id, playerKey);
+        const playerName = stateService.getState().players[playerKey];
+        io.emit('state:update', { map });
+        broadcastFullState();
+        pushLog('select', `${playerName} selected ${map.shortName}`, { id, playerKey });
+      } catch (error) {
+        emitError(socket, error);
+      }
+    });
+
+    socket.on('admin:clearSelection', ({ id }) => {
+      try {
+        const map = stateService.clearSelection(id);
+        io.emit('state:update', { map });
+        broadcastFullState();
+        pushLog('selectClear', `${map.shortName} selection cleared`, { id });
+      } catch (error) {
+        emitError(socket, error);
+      }
+    });
+
     socket.on('admin:unban', ({ id }) => {
       try {
         const map = stateService.unbanMap(id);

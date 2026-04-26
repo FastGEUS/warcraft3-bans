@@ -12,6 +12,11 @@ const MAP_STATUSES = Object.freeze({
   PLAYED: 'played',
 });
 
+const DEFAULT_PLAYERS = Object.freeze({
+  player1: 'Player 1',
+  player2: 'Player 2',
+});
+
 class StateService {
   constructor(maps = mapConfig) {
     this.mapsConfig = maps;
@@ -25,11 +30,13 @@ class StateService {
       maps[map.id] = {
         ...map,
         status: MAP_STATUSES.IDLE,
+        selectedBy: null,
       };
     });
 
     return {
       phase: PHASES.BANNING,
+      players: { ...DEFAULT_PLAYERS },
       maps,
       revealQueue: [],
       activeMapId: null,
@@ -63,6 +70,7 @@ class StateService {
     }
 
     map.status = MAP_STATUSES.BANNED;
+    map.selectedBy = null;
     this.touch();
     return structuredClone(map);
   }
@@ -75,6 +83,54 @@ class StateService {
     }
 
     map.status = MAP_STATUSES.IDLE;
+    this.touch();
+    return structuredClone(map);
+  }
+
+  updatePlayers(players = {}) {
+    const normalize = (value, fallback) => {
+      const normalized = String(value || '').trim();
+      return normalized || fallback;
+    };
+
+    this.state.players = {
+      player1: normalize(players.player1, DEFAULT_PLAYERS.player1),
+      player2: normalize(players.player2, DEFAULT_PLAYERS.player2),
+    };
+
+    this.touch();
+    return structuredClone(this.state.players);
+  }
+
+  selectMap(id, playerKey) {
+    this.assertBanningPhase();
+
+    if (!Object.hasOwn(this.state.players, playerKey)) {
+      throw new Error(`Unknown player key: ${playerKey}`);
+    }
+
+    const map = this.getMap(id);
+    if (!map) {
+      throw new Error(`Unknown map id: ${id}`);
+    }
+
+    if (map.status === MAP_STATUSES.BANNED) {
+      throw new Error(`Cannot select banned map: ${id}`);
+    }
+
+    map.selectedBy = playerKey;
+    this.touch();
+    return structuredClone(map);
+  }
+
+  clearSelection(id) {
+    this.assertBanningPhase();
+    const map = this.getMap(id);
+    if (!map) {
+      throw new Error(`Unknown map id: ${id}`);
+    }
+
+    map.selectedBy = null;
     this.touch();
     return structuredClone(map);
   }
@@ -146,4 +202,5 @@ module.exports = {
   StateService,
   PHASES,
   MAP_STATUSES,
+  DEFAULT_PLAYERS,
 };
