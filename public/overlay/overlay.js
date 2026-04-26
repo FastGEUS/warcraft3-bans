@@ -7,10 +7,10 @@ let currentState = null;
 let fallbackTimers = new Map();
 
 function setSlotGeometry(element, slot) {
-  element.style.left = `${slot.x}%`;
-  element.style.top = `${slot.y}%`;
-  element.style.width = `${slot.w}%`;
-  element.style.height = `${slot.h}%`;
+  element.style.left = `${slot.x}px`;
+  element.style.top = `${slot.y}px`;
+  element.style.width = `${slot.w}px`;
+  element.style.height = `${slot.h}px`;
 }
 
 function primeVideo(video) {
